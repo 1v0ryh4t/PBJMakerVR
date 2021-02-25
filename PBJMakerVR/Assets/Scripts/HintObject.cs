@@ -9,27 +9,40 @@ public class HintObject : MonoBehaviour
      * This script should be attached to the gameobject associated with it
      * */
 
+
+    public bool isHinting = false;
+
+    private Color objectColor;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        objectColor = gameObject.GetComponent<MeshRenderer>().material.color;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (isHinting)
+            ShowHint();
+        else
+            HideHint();
+    }
+
+    public void SetIsHinting(bool b)
+    {
+        isHinting = b;
     }
 
     //should flash and display hint
-    public void ShowHint()
+    private void ShowHint()
     {
-
+        gameObject.GetComponent<MeshRenderer>().material.color = Color.Lerp(objectColor, Color.yellow, 0.5f);
     }
 
     //should stop flash and hint
-    public void HideHint()
+    private void HideHint()
     {
-
+        gameObject.GetComponent<MeshRenderer>().material.color = objectColor;
     }
 }
